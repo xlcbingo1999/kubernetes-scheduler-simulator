@@ -1,3 +1,12 @@
+# data files
+data/*
+# plot data
+experiments/analysis/analysis_results/*
+experiments/analysis/expected_results/*
+experiments/plot/expected_results/*
+# vendor
+vendor/*
+
 # IDE
 .idea
 .vscode
