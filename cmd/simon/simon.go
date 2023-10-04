@@ -2,10 +2,11 @@ package simon
 
 import (
 	goflag "flag"
+	"os"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	cliflag "k8s.io/component-base/cli/flag"
-	"os"
 
 	"github.com/hkust-adsl/kubernetes-scheduler-simulator/cmd/apply"
 	"github.com/hkust-adsl/kubernetes-scheduler-simulator/cmd/doc"
@@ -59,6 +60,6 @@ func init() {
 	case LogTrace:
 		log.SetLevel(log.TraceLevel)
 	default:
-		log.SetLevel(log.InfoLevel)
+		log.SetLevel(log.DebugLevel)
 	}
 }

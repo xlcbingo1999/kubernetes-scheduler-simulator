@@ -4,7 +4,7 @@ metadata:
   name: simon-paib-config
 spec:
   cluster:
-    customConfig: example/test-cluster
+    customConfig: /root/kubernetes-scheduler-simulator/example/test-cluster
   customConfig:
     shufflePod: false
     workloadTuningConfig:
