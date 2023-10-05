@@ -1,14 +1,14 @@
 import yaml
 
 # 读取原始的 YAML 文件
-with open('/root/kubernetes-scheduler-simulator/data/openb_pod_list_micro/openb_node_list_gpu_node_full.yaml', 'r') as input_file:
+with open('/root/kubernetes-scheduler-simulator/data/openb_pod_list_micro/openb_node_list_gpu_node.yaml', 'r') as input_file:
     # 使用 safe_load_all 逐个加载 YAML 文档
     documents = yaml.safe_load_all(input_file)
 
     # 获取前 30 个项目
     first_30_items = []
     for i, doc in enumerate(documents):
-        if i >= 50:
+        if i >= 10:
             break
         first_30_items.append(doc)
 
