@@ -16,9 +16,9 @@
                 "-e",
                 "gpu",
                 "-f",
-                "/root/kubernetes-scheduler-simulator/experiments/2023_0511/openb_pod_list_micro/06-FGD/1.3/42/cc_owmicro_dr0.0_tn1.3_ts42_if1.0_mda83c.yaml",
+                "/root/kubernetes-scheduler-simulator/experiments/2023_0511/openb_pod_list_micro/01-Random/1.3/42/cc_owmicro_dr0.0_tn1.3_ts42_if1.0_md693c.yaml",
                 "-s",
-                "/root/kubernetes-scheduler-simulator/experiments/2023_0511/openb_pod_list_micro/06-FGD/1.3/42/sc_FGD1000_deshare_gsFGDScore_mdaf9c.yaml",
+                "/root/kubernetes-scheduler-simulator/experiments/2023_0511/openb_pod_list_micro/01-Random/1.3/42/sc_Random1000_deshare_gsrandom_md3c66.yaml",
             ]
         }
     ]

@@ -357,7 +357,7 @@ def exp(args):
 
     cluster_dir = expdir
     cluster_file = generate_cluster_config(args, cluster_dir)
-    cluster_file = Path(cluster_file)
+    cluster_file = Path(cluster_file).absolute()
     print("    cc: %s" % cluster_file)
 
     # if args.export_pod_snapshot_yaml_file_prefix:
@@ -366,7 +366,7 @@ def exp(args):
     # if args.scheduler_config:
     scheduler_dir = expdir
     scheduler_file = generate_scheduler_config(args, scheduler_dir)
-    scheduler_file = Path(scheduler_file)
+    scheduler_file = Path(scheduler_file).absolute()
     print("    sc: %s" % scheduler_file)
 
     log_file = ""
