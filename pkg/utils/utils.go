@@ -742,6 +742,7 @@ func (queue *NodeQueue) Swap(i, j int) {
 	queue.nodes[i], queue.nodes[j] = queue.nodes[j], queue.nodes[i]
 }
 func (queue *NodeQueue) Less(i, j int) bool {
+	log.Debugf("[xlc] Using Le-ss in pkg/utils/utils.go:NodeQueue")
 	if strings.Contains(queue.nodes[i], simontype.NewNodeNamePrefix) && strings.Contains(queue.nodes[j], simontype.NewNodeNamePrefix) {
 		return queue.nodes[i] < queue.nodes[j]
 	}

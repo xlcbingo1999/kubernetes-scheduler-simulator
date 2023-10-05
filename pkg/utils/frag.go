@@ -424,7 +424,7 @@ func GetTypicalPods(allPods []*v1.Pod, config v1alpha1.TypicalPodsConfig) simont
 		}
 	}
 
-	tgtPodList := SortTargetPodInDecreasingCount(tgtPodResCntMap)
+	tgtPodList := SortTargetPodInDecreasingCount(tgtPodResCntMap) // TODO(xlc): 这一步似乎充当了对Pod进行排序的作用, 不知道为什么
 	log.Infof("Num of Total Pods: %d\n", len(allPods))
 	for _, k := range GpuNumTypeList { // iter List, instead of Map, to guarantee order
 		log.Infof("  %s Pods: %d (%.2f%%)\n", k, podGpuCntMap[k], 100.0*float64(podGpuCntMap[k])/total)

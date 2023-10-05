@@ -21,6 +21,7 @@ type SkylinePodList []PodResource
 
 func (p TargetPodList) Len() int { return len(p) }
 func (p TargetPodList) Less(i, j int) bool {
+	log.Debugf("[xlc] Using Le-ss in pkg/simulator/resource.go:TargetPodList")
 	if p[i].Percentage != p[j].Percentage {
 		return p[i].Percentage < p[j].Percentage
 	} else { // to stabilize the order if two TargetPod has the same frequency
@@ -29,6 +30,7 @@ func (p TargetPodList) Less(i, j int) bool {
 }
 
 func (tpr PodResource) Less(other PodResource) bool {
+	log.Debugf("[xlc] Using Le-ss in pkg/simulator/resource.go:PodResource")
 	if tpr.MilliCpu != other.MilliCpu {
 		return tpr.MilliCpu < other.MilliCpu
 	} else if tpr.MilliGpu != other.MilliGpu {

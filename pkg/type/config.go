@@ -18,7 +18,7 @@ const (
 
 	// SeparateGpuDimAndDivideOtherDim is similar to SeparateGpuDimAndShareOtherDim.
 	// The difference is that it divides the resources of other dimensions according to the amount of gpu resources left.
-	// e.g., <89.55 CPU, 200 GPU>, <223.88 CPU, 500 GPU>, <2686.57 CPU, 6000 GPU>
+	// e.g., <89.55 CPU, 200 GPU>, <223.88 CPU, 500 GPU>, <2686.57 CPU, 6000 GPU> // 按GPU的比例划分CPU
 	SeparateGpuDimAndDivideOtherDim GpuDimExtMethod = "divide"
 
 	// ExtGpuDim is used to raise the resource dimension at the pod level to be consistent with node gpu resource dimension.

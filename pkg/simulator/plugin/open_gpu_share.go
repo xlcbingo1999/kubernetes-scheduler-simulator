@@ -84,9 +84,10 @@ func (plugin *GpuSharePlugin) Filter(ctx context.Context, state *framework.Cycle
 	if podGpuMilli := gpushareutils.GetGpuMilliFromPodAnnotation(pod); podGpuMilli <= 0 {
 		return framework.NewStatus(framework.Success)
 	}
-	node := nodeInfo.Node()
+	node := nodeInfo.Node() // TODO(xlc): 在这里加log, 打印node的名字, 看是否为遍历模式
 	// Reject if the node has no GPU resource
 	if nodeGpuCount := gpushareutils.GetGpuCountOfNode(node); nodeGpuCount == 0 {
+		log.Debugf("[xlc] Filter pod(%s) on node(%s) => Filter Reject if the node has no GPU resource. Why direct Unschedulable?\n", utils.GeneratePodKey(pod), nodeInfo.Node().Name)
 		return framework.NewStatus(framework.Unschedulable, "Node:"+nodeInfo.Node().Name)
 	}
 
@@ -94,18 +95,22 @@ func (plugin *GpuSharePlugin) Filter(ctx context.Context, state *framework.Cycle
 	nodeGpuType := gpushareutils.GetGpuModelOfNode(node)
 	podGpuType := gpushareutils.GetGpuModelFromPodAnnotation(pod)
 	if utils.IsNodeAccessibleToPodByType(nodeGpuType, podGpuType) == false {
+		log.Debugf("[xlc] Filter pod(%s) on node(%s) => Reject if the GPU type does not match. Why direct Unschedulable?\n", utils.GeneratePodKey(pod), nodeInfo.Node().Name)
 		return framework.NewStatus(framework.Unschedulable, "Node:"+nodeInfo.Node().Name)
 	}
 
 	gpuNodeInfo, err := plugin.cache.GetGpuNodeInfo(node.Name)
 	if err != nil {
+		log.Debugf("[xlc] Filter pod(%s) on node(%s) => Reject if the node not in cache. Why direct Unschedulable?\n", utils.GeneratePodKey(pod), nodeInfo.Node().Name)
 		return framework.NewStatus(framework.Unschedulable, "Node:"+nodeInfo.Node().Name)
 	}
 	_, found := gpuNodeInfo.AllocateGpuId(pod)
 	if !found {
+		log.Debugf("[xlc] Filter pod(%s) on node(%s) => Reject if not gpu found. Why direct Unschedulable?\n", utils.GeneratePodKey(pod), nodeInfo.Node().Name)
 		return framework.NewStatus(framework.Unschedulable, "Node:"+nodeInfo.Node().Name)
 	}
 
+	log.Debugf("[xlc] Filter pod(%s) on node(%s) => success\n", utils.GeneratePodKey(pod), nodeInfo.Node().Name)
 	return framework.NewStatus(framework.Success)
 }
 
@@ -166,7 +171,7 @@ func (plugin *GpuSharePlugin) Reserve(ctx context.Context, state *framework.Cycl
 	plugin.Lock()
 	defer plugin.Unlock()
 
-	log.Debugf("reserve pod(%s) on node(%s)\n", utils.GeneratePodKey(pod), nodeName)
+	log.Debugf("[xlc] Reserve pod(%s) on node(%s)\n", utils.GeneratePodKey(pod), nodeName)
 	if gpushareutils.GetGpuMilliFromPodAnnotation(pod) <= 0 {
 		return framework.NewStatus(framework.Success) // non-GPU pods are skipped
 	}

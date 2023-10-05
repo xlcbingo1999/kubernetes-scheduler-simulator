@@ -54,6 +54,8 @@ func (plugin *DotProductScorePlugin) Score(ctx context.Context, state *framework
 	podRes := utils.GetPodResource(p)
 
 	score, _ := calculateDotProductScore(nodeRes, podRes, *plugin.cfg)
+	log.Debugf("[xlc] score [pod (%v) - node (%v)]: %d\n",
+		utils.GeneratePodKey(p), nodeName, score)
 	return score, framework.NewStatus(framework.Success)
 }
 

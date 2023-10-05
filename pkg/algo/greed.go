@@ -1,6 +1,7 @@
 package algo
 
 import (
+	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	resourcehelper "k8s.io/kubectl/pkg/util/resource"
@@ -38,6 +39,7 @@ func (greed *GreedQueue) Less(i, j int) bool {
 	// DRF算法: 在调度时，让具有最低资源占用比例的任务具有高优先级
 	// 若用DRF算法, 反而不是最优解
 	// Pod with nodeName should have higher priority to be scheduled
+	log.Debugf("[xlc] Using Le-ss in pkg/algo/greed.go:GreedQueue")
 	if len(greed.pods[i].Spec.NodeName) != 0 {
 		return true
 	} else if len(greed.pods[j].Spec.NodeName) != 0 {
