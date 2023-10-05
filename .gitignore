@@ -4,6 +4,7 @@ data/*
 experiments/analysis/analysis_results/*
 experiments/analysis/expected_results/*
 experiments/plot/expected_results/*
+experiments/2023_0511/*
 # vendor
 vendor/*
 
