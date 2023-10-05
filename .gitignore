@@ -10,7 +10,7 @@ vendor/*
 
 # IDE
 .idea
-.vscode
+# .vscode # 暂时打开IDE, 避免数据的丢失
 
 .DS_Store
 *.tgz

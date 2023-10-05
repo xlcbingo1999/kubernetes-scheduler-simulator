@@ -1,0 +1,56 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "mkdir",
+            "type": "shell",
+            "command": "mkdir -p ${config:EXPDIR}",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "touch",
+            "type": "shell",
+            "command": "touch ${config:EXPDIR}/terminal.out",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "python sched",
+            "type": "shell",
+            "command": "python3 scripts/generate_config_and_run.py -d ${config:EXPDIR} -e -b -f data/openb_pod_list_micro -BestFit 1000 -tune 1.3 -tuneseed 42 --shuffle-pod=true -z ${config:EXPDIR}/snapshot/ds01  | tee -a ${config:EXPDIR}/terminal.out",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "python analysis",
+            "type": "shell",
+            "command": "python3 scripts/analysis.py -f -g ${config:EXPDIR} | tee -a ${config:EXPDIR}/terminal.out",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "MainTask",
+            "dependsOrder": "sequence",
+            "dependsOn": ["mkdir", "touch", "python sched", "python analysis"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
